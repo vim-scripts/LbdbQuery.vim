@@ -1,6 +1,6 @@
 " FILE: LbdbQuery.vim
 " AUTHOR: Janakiraman .S <prince AT india DoT ti dOt com>
-" Last Modified: Sat, 17 Aug 2002 10:06:25 (IST)
+" Last Modified: Wed, 29 Oct 2003 08:48:16 (IST)
 " Usage: Just source this file.
 "        source LbdbQuery.vim
 " LICENSE: Same as Vim. Use at  your own risk. Add stuff to taste.
@@ -10,6 +10,8 @@
 "        are displayed in a split window. The window is closed when the key
 "        'q' is hit. Hit the "+" key to select the email id of interest.
 "        Written to work with vim-5.7.
+" FIXES: Script doesn't work if name is of form "Lastname, Firstname"
+"        Fix contributed by Gerhard Siegesmund <gerhard DoT siegesmund AT orange-digital dOT de>
 
 " Map the key combination ,i to look up the current word with lbdbq.
 map ,i :call LbdbQuery(expand("<cword>"))<cr>
@@ -42,7 +44,7 @@ fun! LbdbSelectEntry()
   normal x
   exec "normal \"adt\<Tab>"
   let username = @a
-  let @a = username ." ". mailid
+  let @a = "\"".username ."\" ". mailid
   undo
   let &modified=0
   hide
